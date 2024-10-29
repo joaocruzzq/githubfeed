@@ -8,7 +8,9 @@ export const HeaderContainer = styled.header`
    align-items: center;
    justify-content: center;
 
-   background: ${props => props.theme["base-profile"]};
+   background-image: url(/header-bg.png);
+   background-repeat: no-repeat;
+   background-size: cover;
    
    .header-effects {
       width: 100%;
