@@ -13,7 +13,10 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    body, input, button, textarea {
-      font-weight: 400;
-      font: 400 1rem Nunito, sans-serif;
+      font: 300 1rem Nunito, sans-serif;
+   }
+
+   a {
+      text-decoration: none;
    }
 `
