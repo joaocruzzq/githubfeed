@@ -4,6 +4,7 @@ import { HomeContainer, ProfileCardContainer, ProfileCardContent, ProfileInforma
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { PostCard } from "./components";
 
 export function Home() {
    return (
@@ -52,6 +53,13 @@ export function Home() {
             </div>
 
             <input type="text" placeholder="Buscar conteúdo"/>
+         </div>
+
+         <div className="posts">
+            <PostCard />
+            <PostCard />
+            <PostCard />
+            <PostCard />
          </div>
       </HomeContainer>
       

@@ -47,6 +47,14 @@ export const HomeContainer = styled.div`
          color: ${props => props.theme["base-label"]};
       }
    }
+
+   .posts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 2rem;
+      margin: 3rem 0;
+   }
 `
 
 export const ProfileCardContainer = styled.div`
