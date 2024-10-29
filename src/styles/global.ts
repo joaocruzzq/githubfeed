@@ -6,7 +6,12 @@ export const GlobalStyle = createGlobalStyle`
       padding: 0;
    }
 
+   :focus {
+      outline: 1px solid ${props => props.theme.blue};
+   }
+
    body {
+      transition: outline ease-in-out 0.2s;
       -webkit-font-smoothing: antialiased;
       color: ${props => props.theme["base-text"]};
       background: ${props => props.theme["base-background"]};

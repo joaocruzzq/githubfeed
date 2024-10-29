@@ -44,6 +44,15 @@ export function Home() {
                </div>
             </ProfileCardContent>
          </ProfileCardContainer>
+
+         <div className="search">
+            <div className="search-header">
+               <h2>Publicações</h2>
+               <span>6 publicações</span>
+            </div>
+
+            <input type="text" placeholder="Buscar conteúdo"/>
+         </div>
       </HomeContainer>
       
       </>

@@ -7,7 +7,46 @@ export const HomeContainer = styled.div`
    padding: 0 1.5rem;
 
    display: flex;
+   flex-direction: column;
    justify-content: center;
+
+   .search-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 4.5rem 0 0.75rem;
+   }
+
+   .search-header > h2 {
+      font-size: 1.125rem;
+      font-weight: bold;
+      color: ${props => props.theme["base-subtitle"]};
+   }
+
+   .search-header > span {
+      font-size: 0.875rem;
+      font-weight: normal;
+      color: ${props => props.theme["base-span"]};
+   }
+
+   .search {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .search > input {
+      border: 0;
+
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+
+      color: ${props => props.theme["base-text"]};
+      background: ${props => props.theme["base-input"]};
+      border: 1px solid ${props => props.theme["base-border"]};
+
+      &::placeholder {
+         color: ${props => props.theme["base-label"]};
+      }
+   }
 `
 
 export const ProfileCardContainer = styled.div`
@@ -56,6 +95,9 @@ export const ProfileCardContent = styled.div`
       
       height: fit-content;
       color: ${props => props.theme.blue};
+
+      border-bottom: 1px solid transparent;
+      transition: border-bottom ease-in-out 0.25s;
 
       &:hover {
          border-bottom: 1px solid ${props => props.theme.blue};
