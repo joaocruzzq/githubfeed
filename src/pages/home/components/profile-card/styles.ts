@@ -24,6 +24,8 @@ export const ProfileCardContainer = styled.div`
 `
 
 export const ProfileCardContent = styled.div`
+   width: 100%;
+
    .profile-header {
       display: flex;
       margin-bottom: 0.5rem;

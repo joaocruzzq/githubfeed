@@ -5,14 +5,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 
+import { api } from "../../../../lib/axios";
+
+import { useEffect, useState } from "react";
+
+interface UserInfoProps {
+   name: string
+   avatar_url: string
+   login: string
+   followers: number
+   company: string
+   bio: string
+}
+
 export function ProfileCard() {
+   const [userInfo, setUserInfo] = useState<UserInfoProps>()
+
+   useEffect(() => {
+      async function fetchUserInfo() {
+         const response = await api.get('/users/jaocruz')
+   
+         setUserInfo(response.data)
+      }
+
+      fetchUserInfo()
+   }, [])
+
    return (
       <ProfileCardContainer>
-         <img src="/img-placeholder.jpg" alt="" />
+         <img src={userInfo?.avatar_url} alt="" />
 
          <ProfileCardContent>
             <div className="profile-header">
-               <h1>Cameron Williamson</h1>
+               <h1>{userInfo?.name}</h1>
 
                <a href="">
                   GITHUB
@@ -20,22 +45,24 @@ export function ProfileCard() {
                </a>
             </div>
 
-            <span>Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.</span>
+            <span>{userInfo?.bio}</span>
 
             <div className="informations">
                <ProfileInformationCard>
                   <FontAwesomeIcon icon={faGithub} />
-                  cameronwll
+                  {userInfo?.login}
                </ProfileInformationCard>
 
-               <ProfileInformationCard>
-                  <FontAwesomeIcon icon={faBuilding} />
-                  Rocketseat
-               </ProfileInformationCard>
+               {userInfo?.company && (
+                  <ProfileInformationCard>
+                     <FontAwesomeIcon icon={faBuilding} />
+                     {userInfo?.company}
+                  </ProfileInformationCard>
+               )}
 
                <ProfileInformationCard>
                   <FontAwesomeIcon icon={faUserGroup} />
-                  32 seguidores
+                  {userInfo?.followers} seguidores
                </ProfileInformationCard>
             </div>
          </ProfileCardContent>
