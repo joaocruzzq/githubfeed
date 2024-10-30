@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
       background: ${props => props.theme["base-background"]};
    }
 
-   body, h1, span, input, button, textarea {
+   body, span, input, button, textarea {
       line-height: 160% !important;
       font: 300 1rem Nunito, sans-serif;
    }
