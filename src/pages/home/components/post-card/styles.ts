@@ -1,17 +1,36 @@
 import styled from "styled-components";
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
-export const PostCardContainer = styled.div`
+export const PostCardContainer = styled(RadioGroup.Item)`
+   border: 0;
    border-radius: 10px;
-   padding: 2rem 2rem 2.5rem;
 
-   background: ${props => props.theme["base-post"]};
+   height: 100%;
+
+   max-width: 100%;
+   min-height: 16.25rem;
+
+   display: grid;
+   grid-template-rows: auto 1fr;
+   
+   padding: 2rem 2rem 2.5rem;
 
    outline: 2px solid transparent;
    transition: outline ease-in-out 0.4s;
 
-   &:hover{
+   background: ${props => props.theme["base-post"]};
+
+   &:focus {
+      outline: 2px solid ${props => props.theme["base-label"]};
+   }
+
+   &:hover {
       cursor: pointer;
       outline: 2px solid ${props => props.theme["base-label"]};
+   }
+
+   h1 {
+      text-align: left;
    }
 
    span {
@@ -19,6 +38,9 @@ export const PostCardContainer = styled.div`
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
+
+      text-align: left;
+      color: ${props => props.theme["base-text"]};
    }
 `
 
