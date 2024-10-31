@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const PostCardContainer = styled.div`
-   padding: 2rem 2rem 2.5rem;
    border-radius: 10px;
+   padding: 2rem 2rem 2.5rem;
 
    background: ${props => props.theme["base-post"]};
 
@@ -24,6 +24,7 @@ export const PostCardContainer = styled.div`
 
 export const PostCardContent = styled.div`
    display: flex;
+
    gap: 1rem;
    margin-bottom: 1.25rem;
 

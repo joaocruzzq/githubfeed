@@ -44,7 +44,7 @@ export function Home() {
          <SearchbarContainer>
             <div className="search-header">
                <h2>Publicações</h2>
-               <span>6 publicações</span>
+               <span>{issuesList.length} publicações</span>
             </div>
 
             <input type="text" placeholder="Buscar conteúdo"/>
