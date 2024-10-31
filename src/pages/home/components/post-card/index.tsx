@@ -1,5 +1,7 @@
 import { PostCardContainer, PostCardContent } from "./styles"
 
+import { dateFormatter } from "../../../../utils/formatter"
+
 interface PostCardProps {
    title: string
    body: string
@@ -11,7 +13,7 @@ export function PostCard(props: PostCardProps) {
       <PostCardContainer>
          <PostCardContent>
             <h1>{props.title}</h1>
-            <strong>{props.created_at}</strong>
+            <strong>{dateFormatter.format(new Date(props.created_at))}</strong>
          </PostCardContent>
 
          <span>{props.body}</span>
