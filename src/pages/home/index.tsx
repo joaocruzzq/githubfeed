@@ -4,35 +4,11 @@ import { HomeContainer, PostsContainer, SearchbarContainer } from "./styles";
 import { PostCard } from "./components/post-card";
 import { ProfileCard } from "./components/profile-card";
 
-import { api } from "../../lib/axios";
-import { useEffect, useState } from "react";
-
-interface IssueProps {
-   id: number
-   title: string
-   body: string
-   created_at: string
-}
+import { useContext } from "react";
+import { IssuesContext } from "../../contexts/homeContext";
 
 export function Home() {
-   const [issuesList, setIssuesList] = useState<IssueProps[]>([])
-
-   useEffect(() => {
-      async function fetchIssuesListInfo() {
-         const response = await api.get('https://api.github.com/search/issues?q=Boas%20pr%C3%A1ticas%20repo:rocketseat-education/reactjs-github-blog-challenge')
-   
-         const extractedData = response.data.items.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            body: item.body,
-            created_at: item.created_at,
-        }));
-
-         setIssuesList(extractedData)
-      }
-
-      fetchIssuesListInfo()
-   }, [])
+   const { issuesList } = useContext(IssuesContext)
 
    return (
       <>
@@ -65,7 +41,6 @@ export function Home() {
             </PostsContainer>
          }
       </HomeContainer>
-      
       </>
    )
 }

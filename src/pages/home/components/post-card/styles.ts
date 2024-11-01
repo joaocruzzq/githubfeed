@@ -5,9 +5,9 @@ export const PostCardContainer = styled(RadioGroup.Item)`
    border: 0;
    border-radius: 10px;
 
+   width: 100%;
    height: 100%;
 
-   max-width: 100%;
    min-height: 16.25rem;
 
    display: grid;

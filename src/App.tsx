@@ -4,15 +4,18 @@ import { GlobalStyle } from "./styles/global"
 
 import { Router } from "./Router"
 import { BrowserRouter } from "react-router-dom"
+import { IssuesProvider } from "./contexts/homeContext"
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle/>
       
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <IssuesProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </IssuesProvider>
     </ThemeProvider>
   )
 }
