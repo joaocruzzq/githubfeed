@@ -1,7 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 
-import { api } from "../lib/axios";
-
 interface IssuesProps {
    id: number
    title: string
@@ -11,6 +9,7 @@ interface IssuesProps {
 
 interface IssuesContextType {
    issuesList: IssuesProps[]
+   fetchIssuesListInfo: (query?: string) => Promise<void>
 }
 
 interface IssuesProviderProps {
@@ -22,11 +21,21 @@ export const IssuesContext = createContext({} as IssuesContextType)
 export function IssuesProvider({ children }: IssuesProviderProps) {
    const [issuesList, setIssuesList] = useState<IssuesProps[]>([])
 
-   useEffect(() => {
-      async function fetchIssuesListInfo() {
-         const response = await api.get('https://api.github.com/search/issues?q=Boas%20pr%C3%A1ticas%20repo:rocketseat-education/reactjs-github-blog-challenge')
-   
-         const extractedData = response.data.items.map((item: any) => ({
+   async function fetchIssuesListInfo(query?: string) {
+      let searchQuery = 'repo:jaocruz/githubfeed'
+
+      if(query){
+         searchQuery += ` ${query}`
+      }
+
+      const url = new URL("https://api.github.com/search/issues")
+      url.searchParams.append("q", searchQuery)
+
+      const response = await fetch(url)
+      const data = await response.json()
+
+      if(data.items) {
+         const extractedData = data.items.map((item: any) => ({
             id: item.id,
             title: item.title,
             body: item.body,
@@ -36,11 +45,20 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
          setIssuesList(extractedData)
       }
 
+      else {
+         setIssuesList([])
+      }
+   }
+
+   useEffect(() => {
       fetchIssuesListInfo()
    }, [])
 
    return (
-      <IssuesContext.Provider value={{ issuesList }}>
+      <IssuesContext.Provider value={{
+         issuesList,
+         fetchIssuesListInfo
+      }}>
          { children }
       </IssuesContext.Provider>
    )

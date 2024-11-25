@@ -11,7 +11,7 @@ export const HomeContainer = styled.div`
    justify-content: center;
 `
 
-export const SearchbarContainer = styled.div`
+export const SearchbarContainer = styled.form`
    display: flex;
    flex-direction: column;
 

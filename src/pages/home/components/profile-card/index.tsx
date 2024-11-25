@@ -39,7 +39,7 @@ export function ProfileCard() {
             <div className="profile-header">
                <h1>{userInfo?.name}</h1>
 
-               <a href="">
+               <a target="_blank" href="https://github.com/jaocruz">
                   GITHUB
                   <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
                </a>
