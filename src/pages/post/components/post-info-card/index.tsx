@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faAngleLeft, faArrowUpRightFromSquare, faCalendarDay, faComment } from "@fortawesome/free-solid-svg-icons";
 
+import { formatDistanceToNow, parse, parseISO } from "date-fns"
+import { ptBR } from "date-fns/locale"
+
 interface PostInfoCardProps {
    title: string
    login: string
@@ -12,6 +15,21 @@ interface PostInfoCardProps {
 }
 
 export function PostInfoCard(props: PostInfoCardProps) {
+   function formatDateRelative(dateString: string): string {
+      try {
+         const parsedDate = parseISO(dateString)
+
+         return formatDistanceToNow(parsedDate, {
+            addSuffix: true,
+            locale: ptBR
+         })
+      }
+
+      catch {
+         return "Data inválida"
+      }
+   }
+
    return (
       <PostInfoCardContainer>
          <PostInfoCardContent>
@@ -37,7 +55,7 @@ export function PostInfoCard(props: PostInfoCardProps) {
 
                <PostInfoCardInfoSection>
                   <FontAwesomeIcon icon={faCalendarDay} />
-                  {props.created_at}
+                  {formatDateRelative(props.created_at)}
                </PostInfoCardInfoSection>
 
                <PostInfoCardInfoSection>
