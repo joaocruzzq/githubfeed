@@ -23,7 +23,7 @@ export function ProfileCard() {
 
    useEffect(() => {
       async function fetchUserInfo() {
-         const response = await api.get('/users/jaocruz')
+         const response = await api.get('/users/joaocruzzq')
    
          setUserInfo(response.data)
       }
@@ -39,7 +39,7 @@ export function ProfileCard() {
             <div className="profile-header">
                <h1>{userInfo?.name}</h1>
 
-               <a target="_blank" href="https://github.com/jaocruz">
+               <a target="_blank" href="https://github.com/joaocruzzq">
                   GITHUB
                   <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
                </a>

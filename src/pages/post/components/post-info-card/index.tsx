@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faAngleLeft, faArrowUpRightFromSquare, faCalendarDay, faComment } from "@fortawesome/free-solid-svg-icons";
 
-import { formatDistanceToNow, parse, parseISO } from "date-fns"
+import { formatDistanceToNow, parseISO } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
 interface PostInfoCardProps {
@@ -12,6 +12,7 @@ interface PostInfoCardProps {
    login: string
    created_at: string
    comments: number
+   id: number
 }
 
 export function PostInfoCard(props: PostInfoCardProps) {
@@ -39,7 +40,7 @@ export function PostInfoCard(props: PostInfoCardProps) {
                   VOLTAR
                </a>
 
-               <a href="">
+               <a target="_blank" href={`https://github.com/jaocruz/githubfeed/issues/${props.id}`}>
                   VER NO GITHUB
                   <FontAwesomeIcon icon={faArrowUpRightFromSquare}/>
                </a>

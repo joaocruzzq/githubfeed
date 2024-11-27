@@ -21,10 +21,11 @@ export function Post() {
 
       <PostPageContainer>
          <PostInfoCard
-         title={issueInfo?.title}
-         login={issueInfo?.login}
-         comments={issueInfo?.comments}
-         created_at={issueInfo?.created_at}
+         title={issueInfo.title}
+         login={issueInfo.login}
+         comments={issueInfo.comments}
+         created_at={issueInfo.created_at}
+         id={issueInfo.id}
          />
 
          <PostPageContent>

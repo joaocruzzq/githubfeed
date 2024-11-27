@@ -14,11 +14,12 @@ interface IssueInfoProps {
   created_at: string
   comments: number
   body: string
+  id: number
 }
 
 interface IssuesContextType {
   issuesList: IssuesProps[];
-  issueInfo: IssueInfoProps | null;
+  issueInfo: IssueInfoProps;
   fetchIssuesListInfo: (query?: string) => Promise<void>;
   fetchIssueInfo: (issueNumber: number) => Promise<void>;
 }
@@ -32,11 +33,9 @@ export const IssuesContext = createContext({} as IssuesContextType);
 export function IssuesProvider({ children }: IssuesProviderProps) {
   const [issuesList, setIssuesList] = useState<IssuesProps[]>([]);
 
-  const [issueInfo, setIssueInfo] = useState<IssueInfoProps | null>(null);
-
   async function fetchIssuesListInfo(query?: string) {
     try {
-      let searchQuery = "repo:jaocruz/githubfeed";
+      let searchQuery = "repo:joaocruzzq/githubfeed";
 
       if (query) {
         searchQuery += ` ${query}`;
@@ -65,9 +64,18 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
     }
   }
 
+  const [issueInfo, setIssueInfo] = useState<IssueInfoProps>({
+    title: "",
+    login: "",
+    created_at: "",
+    comments: 0,
+    body: "",
+    id: 1,
+  });
+
   async function fetchIssueInfo(issueNumber: number) {
     try {
-      const response = await api.get(`repos/jaocruz/githubfeed/issues/${issueNumber}`);
+      const response = await api.get(`repos/joaocruzzq/githubfeed/issues/${issueNumber}`);
 
       const extractedData = {
         title: response.data.title,
@@ -75,6 +83,7 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
         created_at: response.data.created_at,
         comments: response.data.comments,
         body: response.data.body,
+        id: response.data.number
       };
 
       setIssueInfo(extractedData);
