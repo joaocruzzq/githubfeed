@@ -1,65 +1,102 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { api } from "../lib/axios";
 
 interface IssuesProps {
-   id: number
-   title: string
-   body: string
-   created_at: string
+  number: number
+  title: string
+  body: string
+  created_at: string
+}
+
+interface IssueInfoProps {
+  title: string
+  login: string
+  created_at: string
+  comments: number
+  body: string
 }
 
 interface IssuesContextType {
-   issuesList: IssuesProps[]
-   fetchIssuesListInfo: (query?: string) => Promise<void>
+  issuesList: IssuesProps[];
+  issueInfo: IssueInfoProps | null;
+  fetchIssuesListInfo: (query?: string) => Promise<void>;
+  fetchIssueInfo: (issueNumber: number) => Promise<void>;
 }
 
 interface IssuesProviderProps {
-   children: ReactNode
+  children: ReactNode;
 }
 
-export const IssuesContext = createContext({} as IssuesContextType)
+export const IssuesContext = createContext({} as IssuesContextType);
 
 export function IssuesProvider({ children }: IssuesProviderProps) {
-   const [issuesList, setIssuesList] = useState<IssuesProps[]>([])
+  const [issuesList, setIssuesList] = useState<IssuesProps[]>([]);
 
-   async function fetchIssuesListInfo(query?: string) {
-      let searchQuery = 'repo:jaocruz/githubfeed'
+  const [issueInfo, setIssueInfo] = useState<IssueInfoProps | null>(null);
 
-      if(query){
-         searchQuery += ` ${query}`
+  async function fetchIssuesListInfo(query?: string) {
+    try {
+      let searchQuery = "repo:jaocruz/githubfeed";
+
+      if (query) {
+        searchQuery += ` ${query}`;
       }
 
-      const url = new URL("https://api.github.com/search/issues")
-      url.searchParams.append("q", searchQuery)
+      const response = await api.get("/search/issues", {
+        params: {
+          q: searchQuery,
+        },
+      });
 
-      const response = await fetch(url)
-      const data = await response.json()
+      if (response.data.items) {
+        const extractedData = response.data.items.map((item: any) => ({
+          number: item.number,
+          title: item.title,
+          body: item.body,
+          created_at: item.created_at,
+        }));
 
-      if(data.items) {
-         const extractedData = data.items.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            body: item.body,
-            created_at: item.created_at,
-         }));
-
-         setIssuesList(extractedData)
+        setIssuesList(extractedData);
+      } else {
+        setIssuesList([]);
       }
+    } catch (error) {
+      console.error("Erro ao buscar lista de issues:", error);
+    }
+  }
 
-      else {
-         setIssuesList([])
-      }
-   }
+  async function fetchIssueInfo(issueNumber: number) {
+    try {
+      const response = await api.get(`repos/jaocruz/githubfeed/issues/${issueNumber}`);
 
-   useEffect(() => {
-      fetchIssuesListInfo()
-   }, [])
+      const extractedData = {
+        title: response.data.title,
+        login: response.data.user.login,
+        created_at: response.data.created_at,
+        comments: response.data.comments,
+        body: response.data.body,
+      };
 
-   return (
-      <IssuesContext.Provider value={{
-         issuesList,
-         fetchIssuesListInfo
-      }}>
-         { children }
-      </IssuesContext.Provider>
-   )
+      setIssueInfo(extractedData);
+    } catch (error) {
+      console.error("Erro ao buscar informações do issue:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchIssuesListInfo();
+  }, []);
+
+  return (
+    <IssuesContext.Provider
+      value={{
+        issuesList,
+        issueInfo,
+        fetchIssuesListInfo,
+        fetchIssueInfo,
+      }}
+    >
+      {children}
+    </IssuesContext.Provider>
+  );
 }

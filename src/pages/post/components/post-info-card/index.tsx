@@ -1,15 +1,22 @@
 import { PostInfoCardContainer, PostInfoCardContent, PostInfoCardInfoSection } from "./styles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faArrowUpRightFromSquare, faCalendarDay, faComment } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faAngleLeft, faArrowUpRightFromSquare, faCalendarDay, faComment } from "@fortawesome/free-solid-svg-icons";
 
-export function PostInfoCard() {
+interface PostInfoCardProps {
+   title: string
+   login: string
+   created_at: string
+   comments: number
+}
+
+export function PostInfoCard(props: PostInfoCardProps) {
    return (
       <PostInfoCardContainer>
          <PostInfoCardContent>
             <div className="profile-header">
-               <a href="">
+               <a href="/">
                   <FontAwesomeIcon icon={faAngleLeft}/>
                   VOLTAR
                </a>
@@ -20,22 +27,24 @@ export function PostInfoCard() {
                </a>
             </div>
 
-            <h1>JavaScript data types and data structures</h1>
+            <h1>{props.title}</h1>
 
             <div className="informations">
                <PostInfoCardInfoSection>
                   <FontAwesomeIcon icon={faGithub} />
-                  cameronwll
+                  {props.login}
                </PostInfoCardInfoSection>
 
                <PostInfoCardInfoSection>
                   <FontAwesomeIcon icon={faCalendarDay} />
-                  Há 1 dia
+                  {props.created_at}
                </PostInfoCardInfoSection>
 
                <PostInfoCardInfoSection>
                   <FontAwesomeIcon icon={faComment} />
-                  5 comentários
+                  {props.comments ?
+                     `{props.comments} comentários` : "0 comentários"
+                  } 
                </PostInfoCardInfoSection>
             </div>
          </PostInfoCardContent>

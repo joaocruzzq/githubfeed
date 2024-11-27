@@ -54,7 +54,8 @@ export function Home() {
                {issuesList.map(post => {
                   return (
                      <PostCard
-                     key={post.id}
+                     key={post.number}
+                     number={post.number}
                      title={post.title}
                      body={post.body}
                      created_at={post.created_at}
