@@ -18,21 +18,18 @@ export const PostPageContent = styled.div`
    gap: 1.5rem;
    padding: 2.5rem 2rem;
 
-   .main-text > span {
+   h3 {
       font-size: 1rem;
       font-weight: normal;
       text-decoration: underline;
       color: ${props => props.theme.blue};
+      margin-bottom: -1.125rem;
    }
 
-   .code-card {
+   pre {
       padding: 1rem;
       border-radius: 2px;
+      font-family: 'Fira Code', sans-serif;
       background: ${props => props.theme["base-post"]};
    }
-
-   .code-card > p {
-      font-family: 'Fira Code', sans-serif;
-   }
-
 `
